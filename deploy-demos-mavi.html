@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<link rel="icon" href="data:," />
+<title>Demo Reports Kit — Growth Package · $349/mo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#070722; --navy-2:#0B0B2A; --navy-3:#121233;
+    --paper:#F4F4F0; --paper-dim:#ECECE6; --ink:#0B0B2A; --white:#F2F2ED;
+    --grey:#9A9AB0; --grey-dark:#6E6E7E; --mint:#69F28C; --mint-dark:#0B7A3D;
+    --pink:#E3A6F0; --red:#B42318; --teal:#0B7A64;
+    --line:rgba(242,242,237,.16); --line-dark:rgba(11,11,42,.14);
+    --radius:24px; --muted:#9A9AB0; --surface:#FFFFFF; --surface2:#ECECE6; --line-old:#D9E0D9; --shadow:0 18px 40px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  body{margin:0;background:var(--navy);color:var(--white);font-family:"Archivo",system-ui,sans-serif;line-height:1.45;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--teal);text-underline-offset:2px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+  .topbar{position:sticky;top:0;z-index:20;background:rgba(7,7,34,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar-in{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0}
+  .brand{font-weight:800;font-size:17px;line-height:1.1;letter-spacing:.03em;color:var(--white)}.brand span{display:block;font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-top:3px}
+  .nav{display:flex;gap:4px;flex-wrap:wrap}.nav a{color:var(--white);text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 11px;border-radius:999px}.nav a:hover{background:var(--navy-3);color:var(--mint)}
+  @media(max-width:760px){.nav{display:none}}
+  .hero{padding:48px 0 8px}
+  .pill{display:inline-flex;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:7px 11px;border-radius:999px;border:1px solid var(--line);background:var(--navy-3);color:var(--white)}
+  .pill.amber{background:var(--pink);border-color:var(--pink);color:var(--ink)}
+  h1{font-family:"Anton","Arial Narrow",sans-serif;font-weight:400;font-size:clamp(48px,7.4vw,92px);line-height:.92;letter-spacing:.005em;text-transform:uppercase;margin:20px 0 16px;color:var(--white)}
+  h1 em{font-style:normal;color:var(--mint)}
+  .lede{font-size:clamp(18px,2.4vw,22px);color:#C9C9D6;max-width:34em;margin:0 0 28px}.lede strong{color:var(--white)}
+  .leaks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:860px){.leaks{grid-template-columns:1fr}}
+  .leak{background:var(--paper);border:none;border-radius:var(--radius);padding:24px;text-decoration:none;color:var(--ink);display:block}
+  .leak .n{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:600}
+  .leak .big{font-family:"Anton","Arial Narrow",sans-serif;font-size:clamp(44px,4.8vw,60px);font-weight:400;letter-spacing:.01em;line-height:1;margin:12px 0 8px;display:block;transform:skewX(-6deg);color:var(--ink)}
+  .leak h3{margin:0 0 6px;font-size:19px;font-weight:700}.leak p{margin:0;color:#3C3C4C;font-size:14.5px}
+  .leak .fix{margin-top:14px;padding-top:12px;border-top:1px solid var(--line-dark);font-size:14.5px}.leak .fix b{color:var(--mint-dark)}
+  .price-strip{margin-top:16px;background:var(--navy-2);color:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:28px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center}
+  @media(max-width:760px){.price-strip{grid-template-columns:1fr}}
+  .price-strip .amt{font-family:"Anton","Arial Narrow",sans-serif;font-size:clamp(64px,8vw,88px);font-weight:400;letter-spacing:.01em;line-height:1;color:var(--mint);transform:skewX(-5deg)}.price-strip .amt span{font-size:18px;font-weight:600;opacity:.85;color:var(--white)}
+  .price-strip ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:15px}
+  .price-strip ul li::before{content:"\2713 ";font-weight:900;color:var(--mint)}
+  .price-strip p{margin:0;font-size:13.5px;opacity:.92;max-width:26em;color:#C9C9D6}
+  .btn{display:inline-flex;padding:13px 18px;border-radius:999px;font-weight:800;font-size:15px;text-decoration:none;border:1px solid var(--mint);background:var(--mint);color:var(--ink);cursor:pointer}
+  .btn-ghost{background:transparent;color:var(--white);border-color:var(--line)}
+  section.block{padding:52px 0 8px;scroll-margin-top:70px}
+  .sec-head h2{font-family:"Anton","Arial Narrow",sans-serif;font-size:clamp(36px,5vw,58px);line-height:.95;letter-spacing:.01em;text-transform:uppercase;margin:0 0 10px;font-weight:400;color:var(--white)}
+  .sec-head p{color:var(--grey);margin:0 0 22px;font-size:16.5px;max-width:40em}
+  .report{background:var(--paper);color:var(--ink);border:none;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .report-head{padding:22px 26px;background:var(--paper-dim);border-bottom:1px solid var(--line-dark);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center}
+  .report-head h3{margin:6px 0 0;font-size:22px;letter-spacing:-.01em}
+  .report-head .score{text-align:right}.report-head .score b{font-family:"Anton","Arial Narrow",sans-serif;font-size:38px;line-height:1;letter-spacing:.01em;font-weight:400}
+  .report-body{padding:26px}
+  .pfs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:22px}
+  @media(max-width:860px){.pfs{grid-template-columns:1fr}}
+  .pf{border:1px solid var(--line-dark);border-radius:16px;padding:18px;background:#FFFFFF}
+  .pf .k{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;margin-bottom:8px}
+  .pf.pain .k{color:var(--red)}.pf.fix .k{color:var(--teal)}.pf.proof .k{color:#8A5A00}
+  .pf p{margin:0;font-size:15px}.pf .huge{font-family:"Anton","Arial Narrow",sans-serif;font-size:36px;font-weight:400;letter-spacing:.01em;line-height:1.05;display:block;margin-bottom:6px;transform:skewX(-4deg)}
+  .pf a{font-size:12.5px}
+  .label{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey-dark);font-weight:700;margin-bottom:10px}
+  .bars{display:grid;gap:12px;margin:6px 0 18px}
+  .bar-row{display:grid;grid-template-columns:150px 1fr 48px;gap:10px;align-items:center;font-size:14px;font-weight:600}
+  @media(max-width:520px){.bar-row{grid-template-columns:104px 1fr 40px}}
+  .bar-track{height:16px;background:var(--paper-dim);border-radius:999px;overflow:hidden;border:1px solid var(--line-dark)}
+  .bar-fill{height:100%;background:var(--teal)}.bar-fill.you{background:var(--red)}.bar-fill.top{background:var(--ink)}
+  .checks{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px;font-size:15px;margin:0 0 6px;padding:0;list-style:none}
+  @media(max-width:640px){.checks{grid-template-columns:1fr}}
+  .checks li{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line-dark);padding:8px 0}
+  .checks li span:first-child{color:#3C3C4C}.checks li b{text-align:right}
+  .fixlist{list-style:none;padding:0;margin:0;display:grid;gap:8px;font-size:15px}
+  .fixlist li{display:flex;gap:10px}.fixlist li::before{content:"\2192";color:var(--mint-dark);font-weight:900}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
+  .note{font-size:13.5px;color:#3C3C4C;background:#F7E9FC;border-radius:12px;padding:13px 15px;margin-top:16px}
+  .calc{background:var(--navy-2);color:var(--white);border-radius:18px;padding:22px}
+  .calc.light{background:var(--paper-dim);color:var(--ink);border:1px solid var(--line-dark)}
+  .calc h4{margin:0 0 4px;font-size:19px}.calc>p{margin:0 0 16px;opacity:.88;font-size:13.5px}
+  .field{margin-bottom:13px}.field label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:700;margin-bottom:5px}
+  .field label output{font-family:"IBM Plex Mono",monospace}
+  .field input[type=range]{width:100%;accent-color:var(--mint)}
+  .calc.light input[type=range]{accent-color:var(--mint-dark)}
+  .field input[type=number]{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line-dark);background:#FFFFFF;color:var(--ink);font:inherit}
+  .calc-result{border-top:1px solid rgba(242,242,237,.2);padding-top:15px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .calc.light .calc-result{border-top-color:var(--line-dark)}
+  .calc-result div b{display:block;font-size:25px;line-height:1;letter-spacing:-.02em}
+  .calc-result div span{font-size:12.5px;opacity:.9}
+  .calc-result .full{grid-column:1/-1}.calc-result .full b{font-family:"Anton","Arial Narrow",sans-serif;font-size:36px;font-weight:400;color:var(--mint)}
+  .calc.light .full b{color:var(--red)}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  @media(max-width:760px){.steps{grid-template-columns:1fr 1fr}}
+  @media(max-width:460px){.steps{grid-template-columns:1fr}}
+  .step{border:1px solid var(--line-dark);border-radius:14px;padding:15px;background:#FFFFFF}
+  .step b{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);display:block;margin-bottom:6px}
+  .step p{margin:0;font-size:14px;color:#3C3C4C}.step strong{color:var(--ink)}
+  .growth{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:stretch}
+  @media(max-width:760px){.growth{grid-template-columns:1fr}.growth .arrow{transform:rotate(90deg);justify-self:center}}
+  .gcol{border-radius:var(--radius);padding:24px;border:1px solid var(--line)}
+  .gcol.before{background:var(--paper);color:var(--ink)}.gcol.after{background:var(--navy-3);color:var(--white)}
+  .gcol h3{margin:0 0 14px;font-size:18px}
+  .gcol ul{list-style:none;margin:0;padding:0;display:grid;gap:12px;font-size:15px}
+  .gcol li b{font-size:24px;letter-spacing:-.02em;display:block;line-height:1.1}
+  .gcol li span{opacity:.85;font-size:13.5px}
+  .arrow{align-self:center;font-size:34px;font-weight:900;color:var(--mint)}
+  .mile{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  @media(max-width:760px){.mile{grid-template-columns:1fr}}
+  .mile div{background:var(--paper);color:var(--ink);border:none;border-radius:16px;padding:18px}
+  .mile b{font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mint-dark);display:block;margin-bottom:6px;font-weight:700}
+  .mile p{margin:0;font-size:14.5px;color:#3C3C4C}.mile strong{color:var(--ink)}
+  .booking{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:860px){.booking{grid-template-columns:1fr}}
+  .svc{display:grid;gap:10px}
+  .svc button,.slot{font:inherit;text-align:left;padding:14px 16px;border-radius:14px;border:1px solid var(--line-dark);background:#FFFFFF;cursor:pointer;color:var(--ink)}
+  .svc button[aria-pressed="true"],.slot[aria-pressed="true"]{border-color:var(--ink);background:var(--paper-dim);outline:2px solid rgba(11,122,61,.45)}
+  .svc button b{display:block;font-size:15px}.svc button span{font-size:13px;color:#3C3C4C}
+  .slots{display:flex;flex-wrap:wrap;gap:8px}.slot{padding:10px 13px;font-size:14px;font-weight:700}
+  .confirm{border:1px solid var(--mint-dark);border-radius:14px;padding:18px;background:#FFFFFF}
+  .market{width:100%;border-collapse:collapse;font-size:14.5px}
+  .market th,.market td{padding:10px;border-bottom:1px solid var(--line-dark);text-align:left}
+  .market td:last-child,.market th:last-child{text-align:right;font-weight:700;white-space:nowrap}
+  .market tr.ours td{font-weight:900;font-size:16px;color:var(--mint-dark)}
+  .contact{background:var(--paper);color:var(--ink);border-radius:var(--radius);padding:clamp(26px,4vw,44px);margin-top:8px}
+  .contact h2{font-family:"Anton","Arial Narrow",sans-serif;font-weight:400;text-transform:uppercase;font-size:clamp(32px,4.4vw,52px);line-height:.95;margin:10px 0 18px}
+  .contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:860px){.contact-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:480px){.contact-grid{grid-template-columns:1fr}}
+  .contact-grid div{border-top:1px solid var(--line-dark);padding-top:12px}
+  .contact-grid b{display:block;font-size:17px;margin-top:4px}
+  .contact-grid a{color:var(--ink);font-weight:700}
+  footer{padding:36px 0 48px;color:var(--grey);font-size:13.5px}
+  .sources{columns:2;column-gap:28px;font-size:13.5px;padding-left:18px;color:#C9C9D6}
+  @media(max-width:700px){.sources{columns:1}}
+  .sources li{break-inside:avoid;margin-bottom:8px}
+  .sources a{color:var(--mint)}
+  .disclaimer{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--navy-2);font-size:13.5px;color:#C9C9D6}
+  .disclaimer strong{color:var(--white)}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  @media print{.topbar{display:none}body{background:#fff;color:#000}.report{box-shadow:none;break-inside:avoid}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="wrap topbar-in">
+  <div class="brand">rackelez<span>Demo Reports Kit · Growth Package · $349/mo</span></div>
+  <nav class="nav" aria-label="Kit sections">
+    <a href="#gap">1 · Google</a><a href="#leak">2 · Missed Calls</a><a href="#chair">3 · Empty Chairs</a><a href="#growth">Growth</a><a href="#booking">Booking Demo</a><a href="#pricing">Price</a><a href="#sources">Sources</a>
+  </nav>
+</div></header>
+
+<main class="wrap">
+  <!-- HERO -->
+  <div class="hero">
+    <span class="pill amber">● Demo kit — sample business, sample numbers</span>
+    <h1>Your business is leaking money in <em>3 places.</em></h1>
+    <p class="lede">Not an ads problem. A <strong>found, answered, and booked</strong> problem. Three fixes. One package. See each leak — pain, fix, proof — in under a minute.</p>
+
+    <div class="leaks">
+      <a class="leak" href="#gap"><span class="n">Leak 1 · Invisible</span><span class="big">11 reviews</span><h3>Customers can't find you</h3><p>Your top competitor has 214. Nearly half of buyers skip businesses under 20 reviews.</p><div class="fix"><b>Fix →</b> Google profile rebuilt + review engine</div></a>
+      <a class="leak" href="#leak"><span class="n">Leak 2 · Unanswered</span><span class="big">~62%</span><h3>Calls ring out</h3><p>Most small-business calls go unanswered. Voicemail doesn't save them — callers move on.</p><div class="fix"><b>Fix →</b> Missed call = text back in &lt;30 seconds</div></a>
+      <a class="leak" href="#chair"><span class="n">Leak 3 · Empty chairs</span><span class="big">~23%</span><h3>Bookings don't show</h3><p>Average no-show rate. Every empty slot is revenue that expires that day.</p><div class="fix"><b>Fix →</b> Booking + reminders + same-day backfill</div></a>
+    </div>
+
+    <div class="price-strip" aria-label="Package price">
+      <div class="amt">$349<span> /mo</span></div>
+      <ul>
+        <li>All 3 systems — set up and run for you</li>
+        <li>Month 1: everything live</li>
+        <li>Monthly report with your real numbers</li>
+      </ul>
+      <p><strong>No promises we can't keep:</strong> no ranking guarantee, no fake reviews, no “X jobs booked” guarantee. Texting usage passed through at cost, agreed up front. <a href="#pricing" style="color:inherit">See the honest price check ↓</a></p>
+    </div>
+    <p style="font-size:13.5px;color:var(--muted);margin-top:14px"><strong>Sample business throughout:</strong> “Riverside Dental Studio, Austin, TX” — fictional, invented for this kit. Its numbers are illustrations. Every market stat is real, sourced, and linked.</p>
+  </div>
+
+  <!-- REPORT 1 -->
+  <section id="gap" class="block" aria-labelledby="gap-h">
+    <div class="sec-head"><h2 id="gap-h">Leak 1 — Invisible on Google</h2><p>Demo Report 1 · Google Gap Report — the free 1-page check we send before any pitch.</p></div>
+    <article class="report">
+      <div class="report-head">
+        <div><span class="pill amber">Demo · Sample data</span><h3>Riverside Dental Studio — Austin, TX</h3></div>
+        <div class="score"><div class="label" style="margin:0">Profile score (sample)</div><b>54<span style="font-size:18px;color:var(--muted)"> / 100</span></b><div style="font-size:13px;color:var(--muted)">Competitors: 91 / 100</div></div>
+      </div>
+      <div class="report-body">
+        <div class="pfs">
+          <div class="pf pain"><div class="k">The pain</div><p><span class="huge">11 vs 214 reviews</span>Shoppers pick the competitor before they ever see you.</p></div>
+          <div class="pf fix"><div class="k">Our fix</div><p>Profile completed properly + <strong>same-day review requests</strong> after every visit + a reply to every review.</p></div>
+          <div class="pf proof"><div class="k">The proof</div><p><span class="huge">47%</span>of buyers won't use a business with under 20 reviews.<br><a href="https://makeitloud.net/research/online-reviews-and-local-buying-decisions/" target="_blank" rel="noopener">BrightLocal Review Survey 2026</a></p></div>
+        </div>
+
+        <div class="label">Reviews — you vs. competitors (sample)</div>
+        <div class="bars" role="img" aria-label="Bar chart: Riverside Dental 11 reviews, competitor A 214, competitor B 187, competitor C 142">
+          <div class="bar-row"><span>Riverside (you)</span><div class="bar-track"><div class="bar-fill you" style="width:5%"></div></div><b>11</b></div>
+          <div class="bar-row"><span>Competitor A</span><div class="bar-track"><div class="bar-fill top" style="width:100%"></div></div><b>214</b></div>
+          <div class="bar-row"><span>Competitor B</span><div class="bar-track"><div class="bar-fill" style="width:87%"></div></div><b>187</b></div>
+          <div class="bar-row"><span>Competitor C</span><div class="bar-track"><div class="bar-fill" style="width:66%"></div></div><b>142</b></div>
+        </div>
+
+        <div class="grid2">
+          <div>
+            <div class="label">The gap, at a glance (sample)</div>
+            <ul class="checks">
+              <li><span>Rating</span><b>4.2★ vs 4.8★</b></li>
+              <li><span>New reviews, 3 months</span><b>1 vs 38</b></li>
+              <li><span>Reviews replied to</span><b>2 of 11 vs all</b></li>
+              <li><span>Photos</span><b>6, 2 yrs old vs 84</b></li>
+              <li><span>Category</span><b>Generic vs exact</b></li>
+              <li><span>Booking link</span><b>None vs online</b></li>
+            </ul>
+            <div class="label" style="margin-top:18px">Fixed in week 1</div>
+            <ul class="fixlist">
+              <li>Correct category, every service listed, hours fixed</li>
+              <li>20+ current photos + call &amp; booking links</li>
+              <li>Review requests on + QR card at reception</li>
+              <li>All 11 existing reviews answered</li>
+            </ul>
+          </div>
+          <div>
+            <div class="label">More proof</div>
+            <ul class="fixlist">
+              <li><strong>97%</strong> of consumers read reviews; 49% trust them like a personal recommendation. <a href="https://cufinder.io/blog/statistics/online-review-statistics/" target="_blank" rel="noopener">BrightLocal 2026</a></li>
+              <li><strong>~47%</strong> of small businesses sit under 20 reviews — half the market has this leak. <a href="http://christopholivierconsulting.com/local-seo-statistics/" target="_blank" rel="noopener">BrightLocal 2026, secondary reporting</a></li>
+              <li><strong>68%</strong> require 4+ stars; <strong>74%</strong> only count reviews from the last 3 months — fresh beats total. <a href="https://makeitloud.net/research/online-reviews-and-local-buying-decisions/" target="_blank" rel="noopener">BrightLocal 2026</a></li>
+              <li><strong>+70%</strong> more likely to be visited with a complete profile, according to Google. <a href="https://tagsclick.com/google-business-profile-statistics/" target="_blank" rel="noopener">Google figures</a></li>
+            </ul>
+            <div class="note"><strong>Honest line:</strong> we never buy, pay for, or filter reviews. Fake reviews break the FTC Consumer Reviews Rule (Oct 2024) and risk Google suspension. We only ask real customers, same day.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- REPORT 2 -->
+  <section id="leak" class="block" aria-labelledby="leak-h">
+    <div class="sec-head"><h2 id="leak-h">Leak 2 — Calls nobody answers</h2><p>Demo Report 2 · Missed-Call Leak Report — we test-call at a busy moment and report what a customer actually gets.</p></div>
+    <article class="report">
+      <div class="report-head">
+        <div><span class="pill amber">Demo · Sample test</span><h3>Test call: Tuesday 6:42 PM, after closing</h3></div>
+        <div class="score"><div class="label" style="margin:0">Sample result</div><b style="font-size:22px">Voicemail → silence</b><div style="font-size:13px;color:var(--muted)">No text. No callback by morning.</div></div>
+      </div>
+      <div class="report-body">
+        <div class="pfs">
+          <div class="pf pain"><div class="k">The pain</div><p><span class="huge">~62% unanswered</span>of small-business calls never reach a person.</p></div>
+          <div class="pf fix"><div class="k">Our fix</div><p>Missed call → <strong>auto-text in &lt;30 seconds</strong>. Web lead → text in &lt;5 minutes. 5 follow-ups over 5 days.</p></div>
+          <div class="pf proof"><div class="k">The proof</div><p><span class="huge">100×</span>higher contact odds replying in 5 min vs 30 min.<br><a href="https://www.expertise.ai/stats/speed-to-lead-statistics" target="_blank" rel="noopener">Oldroyd / InsideSales study</a></p></div>
+        </div>
+
+        <div class="steps" aria-label="How the fix works">
+          <div class="step"><b>0:00 · Call missed</b><p>The clock starts. Nothing is lost <strong>yet</strong>.</p></div>
+          <div class="step"><b>&lt; 0:30 · Text sent</b><p>“Sorry we missed you — how can we help?” From your number.</p></div>
+          <div class="step"><b>&lt; 5 min · Web leads</b><p>Every form lead texted in minutes, not hours.</p></div>
+          <div class="step"><b>They reply · Human</b><p>A person takes over and books them. No bot loop.</p></div>
+        </div>
+
+        <div class="grid2" style="margin-top:22px">
+          <div class="calc" aria-labelledby="calc1-h">
+            <h4 id="calc1-h">Your leak, in dollars</h4>
+            <p>Drag to your numbers. Defaults = the sample practice.</p>
+            <div class="field"><label>Calls per week <output id="o-calls">50</output></label><input type="range" id="i-calls" min="10" max="200" step="5" value="50"></div>
+            <div class="field"><label>Share missed <output id="o-missed">62%</output></label><input type="range" id="i-missed" min="10" max="80" step="1" value="62"></div>
+            <div class="field"><label>Average job value ($)</label><input type="number" id="i-value" min="50" step="10" value="320"></div>
+            <div class="field"><label>Close rate if reached <output id="o-close">30%</output></label><input type="range" id="i-close" min="5" max="70" step="5" value="30"></div>
+            <div class="calc-result">
+              <div><b id="r-missed">31</b><span>missed calls / week</span></div>
+              <div><b id="r-jobs">9.3</b><span>jobs that could close / week</span></div>
+              <div class="full"><b id="r-month">$12,915 / mo</b><span>leaking at your inputs — an estimate for sizing, not a promise</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="label">More proof</div>
+            <ul class="fixlist">
+              <li><strong>~80%</strong> of callers who hit voicemail hang up without a message. <a href="https://www.savemycalls.ai/blog/missed-call-statistics" target="_blank" rel="noopener">Hiya, State of the Call</a></li>
+              <li><strong>Only 37.8%</strong> of calls were answered live in the 411 Locals study behind the 62% figure. <a href="https://www.savemycalls.ai/blog/missed-call-statistics" target="_blank" rel="noopener">SaveMyCalls audit, 2026</a></li>
+              <li><strong>40%</strong> — all that answered a prospect's call in Clio's 500-firm test. Not trade-specific. <a href="https://www.savemycalls.ai/blog/missed-call-statistics" target="_blank" rel="noopener">Clio 2024</a></li>
+            </ul>
+            <div class="note"><strong>A real owner did this maths:</strong> call tracking showed 58% of his calls missed in business hours — roughly $9–10k/week leaking at his job values. “The caller moves on to the next landscaper on Google.” <a href="https://dev.to/robertatkinson3570/62-of-small-business-calls-go-unanswered-mine-were-too-kp1" target="_blank" rel="noopener">Read his post</a><br><br><strong>We don't use the famous “85% never call back” line — nobody can trace its source. Neither should you.</strong></div>
+            <p style="font-size:13px;color:var(--muted)">Setup, stated up front: US A2P 10DLC registration + TCPA opt-out handling, in your name, before any texts. Only people who contacted you get texted.</p>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- REPORT 3 -->
+  <section id="chair" class="block" aria-labelledby="chair-h">
+    <div class="sec-head"><h2 id="chair-h">Leak 3 — Chairs booked, then empty</h2><p>Demo Report 3 · Empty-Chair Report — priced with the practice's own numbers, not a scare figure.</p></div>
+    <article class="report">
+      <div class="report-head">
+        <div><span class="pill amber">Demo · Sample data</span><h3>Riverside today: phone-only booking, no deposit, one email reminder</h3></div>
+        <div class="score"><div class="label" style="margin:0">Sample flow</div><b style="font-size:22px">Phone tag → empty slot</b><div style="font-size:13px;color:var(--muted)">Cancelled slots are never refilled.</div></div>
+      </div>
+      <div class="report-body">
+        <div class="pfs">
+          <div class="pf pain"><div class="k">The pain</div><p><span class="huge">~23% no-show</span>Average across appointment businesses. The slot can't be resold tomorrow.</p></div>
+          <div class="pf fix"><div class="k">Our fix</div><p>Online booking + <strong>text reminders</strong> + 1-tap reschedule + deposit policy + <strong>same-day backfill</strong> texts.</p></div>
+          <div class="pf proof"><div class="k">The proof</div><p><span class="huge">−28.9%</span>fewer no-shows with automated reminders, across 29 studies.<br><a href="https://aitooldaily.net/ai-scheduling-small-business-no-shows/" target="_blank" rel="noopener">Hasvold &amp; Wootton / Cochrane</a></p></div>
+        </div>
+
+        <div class="grid2">
+          <div class="calc light" aria-labelledby="calc2-h">
+            <h4 id="calc2-h">Your empty chairs, in dollars</h4>
+            <p style="color:var(--muted)">Defaults = the sample practice at the 23% average. Use your own rate if you track it.</p>
+            <div class="field"><label>Appointments per week <output id="o-appts">40</output></label><input type="range" id="i-appts" min="10" max="150" step="5" value="40"></div>
+            <div class="field"><label>No-show / late-cancel rate <output id="o-noshow">23%</output></label><input type="range" id="i-noshow" min="3" max="40" step="1" value="23"></div>
+            <div class="field"><label>Value per appointment ($)</label><input type="number" id="i-chair" min="25" step="5" value="200"></div>
+            <div class="calc-result">
+              <div><b id="r-empty">9.2</b><span>empty chairs / week</span></div>
+              <div><b id="r-saved">~$2,305 / mo</b><span>recoverable from reminders alone (−28.9%) — one layer, not a guarantee</span></div>
+              <div class="full"><b id="r-chairmonth">$7,973 / mo</b><span>walking out the door at your inputs</span></div>
+            </div>
+          </div>
+          <div>
+            <div class="label">More proof</div>
+            <ul class="fixlist">
+              <li><strong>82%</strong> of dentists say no-shows are the #1 thing stopping a full schedule. <a href="https://www.thedentalsignal.com/reduce-dental-no-shows/" target="_blank" rel="noopener">ADA poll via Dental Signal</a></li>
+              <li><strong>~$200</strong> lost per missed medical appointment; ~$150B/yr across US healthcare. <a href="https://curogram.com/blog/average-patient-no-show-rate" target="_blank" rel="noopener">SCI / MGMA via Curogram</a></li>
+              <li><strong>23%</strong> average is a compilation of 105 studies — a planning range, definitions vary. <a href="https://trtc.io/blog/details/no-show-statistics-cost-by-industry" target="_blank" rel="noopener">TRTC, 2026</a></li>
+            </ul>
+            <div class="note"><strong>Evidence it's real pain:</strong> one dentist's “No shows make me angry” reel drew <strong>780 comments</strong> from other owners sharing fee and dismissal policies. <a href="https://www.instagram.com/reel/DS51OlNEpiK/" target="_blank" rel="noopener">View the reel</a><br><br><strong>Disagreement, disclosed:</strong> salon platform data (Zenoti 2025) shows just 3% no-shows — but those salons already run reminder software. That's the point.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:22px">
+          <div class="label">Before → after, step by step</div>
+          <ul class="checks">
+            <li><span>Booking</span><b>Phone only → page linked from Google</b></li>
+            <li><span>Reminders</span><b>One email → text + email, 24h &amp; morning-of</b></li>
+            <li><span>Reschedule</span><b>Phone tag → 1 tap</b></li>
+            <li><span>Policy</span><b>None → card-on-file / deposit set</b></li>
+            <li><span>Cancellation</span><b>Slot dies → backfill text same day</b></li>
+          </ul>
+          <p style="font-size:13.5px;color:var(--muted)">Honest limit: a documented salon client no-showed <em>despite</em> reminders. Reminders are one layer — policy, easy reschedule, and backfill are the rest.</p>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- GROWTH PICTURE -->
+  <section id="growth" class="block" aria-labelledby="growth-h">
+    <div class="sec-head"><h2 id="growth-h">The growth picture</h2><p>Same sample business. Same three leaks. What “fixed” looks like — as a system state, not a revenue promise.</p></div>
+    <div class="growth">
+      <div class="gcol before">
+        <h3>❌ Today (sample)</h3>
+        <ul>
+          <li><b>11 reviews · 4.2★</b><span>Invisible next to 214-review rivals</span></li>
+          <li><b>31 calls missed / wk</b><span>≈ $12,886/mo leaking (calculator defaults)</span></li>
+          <li><b>9.2 chairs empty / wk</b><span>≈ $7,967/mo walking out (calculator defaults)</span></li>
+        </ul>
+      </div>
+      <div class="arrow" aria-hidden="true">→</div>
+      <div class="gcol after">
+        <h3>✓ With the package</h3>
+        <ul>
+          <li><b>Every visit asks</b><span>Same-day review requests + every review answered — the count compounds monthly</span></li>
+          <li><b>Every caller reached</b><span>Text in &lt;30 sec, lead in &lt;5 min, 5 follow-ups</span></li>
+          <li><b>Every slot defended</b><span>Reminders (−28.9% no-shows in studies) + backfill for the rest</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="mile">
+      <div><b>Month 1</b><p><strong>Live.</strong> Profile fixed, review engine on, text-back on, booking + reminders on.</p></div>
+      <div><b>Months 2–3</b><p><strong>Compounding.</strong> Fresh reviews land weekly; follow-ups catch the leads that used to die.</p></div>
+      <div><b>Every month</b><p><strong>Proof.</strong> A 1-page report in this same format — your real numbers, not samples.</p></div>
+    </div>
+  </section>
+
+  <!-- BOOKING DEMO -->
+  <section id="booking" class="block" aria-labelledby="booking-h">
+    <div class="sec-head"><h2 id="booking-h">Try it — the booking page</h2><p>What your customers would see. Pick a service and a time. <strong>Demo only — no booking is made, nothing is saved.</strong></p></div>
+    <article class="report"><div class="report-body">
+      <div class="booking">
+        <div>
+          <div class="label">1 · Service — Riverside Dental (sample)</div>
+          <div class="svc" role="group" aria-label="Services">
+            <button type="button" data-svc="New Patient Exam" aria-pressed="true"><b>New Patient Exam</b><span>60 min · intake form included</span></button>
+            <button type="button" data-svc="Cleaning &amp; Polish" aria-pressed="false"><b>Cleaning &amp; Polish</b><span>45 min · most rebooked</span></button>
+            <button type="button" data-svc="Tooth Pain — Urgent Slot" aria-pressed="false"><b>Tooth Pain — Urgent Slot</b><span>30 min · backfill slots appear here first</span></button>
+          </div>
+          <div class="label" style="margin-top:20px">2 · Time — sample availability</div>
+          <div class="slots" role="group" aria-label="Times">
+            <button type="button" class="slot" data-slot="Tomorrow · 9:00 AM" aria-pressed="true">Tomorrow · 9:00 AM</button>
+            <button type="button" class="slot" data-slot="Tomorrow · 11:30 AM" aria-pressed="false">Tomorrow · 11:30 AM</button>
+            <button type="button" class="slot" data-slot="Tomorrow · 2:15 PM" aria-pressed="false">Tomorrow · 2:15 PM</button>
+            <button type="button" class="slot" data-slot="Fri · 10:00 AM" aria-pressed="false">Fri · 10:00 AM</button>
+            <button type="button" class="slot" data-slot="Fri · 4:30 PM" aria-pressed="false">Fri · 4:30 PM</button>
+          </div>
+          <p style="font-size:13px;color:var(--muted)">Live version: linked from Google (Leak 1 fix), every booking enters reminders + backfill automatically (Leak 3 fix).</p>
+        </div>
+        <div>
+          <div class="label">3 · Customer sees</div>
+          <div class="confirm" id="confirm" aria-live="polite">
+            <b style="font-size:18px">✓ You're booked — <span id="c-svc">New Patient Exam</span></b>
+            <p style="margin:8px 0;color:var(--muted);font-size:14.5px"><span id="c-slot">Tomorrow · 9:00 AM</span> · Riverside Dental Studio (sample)<br>Confirmation by text &amp; email, 1-tap reschedule. Reminders: 24 hrs before + morning of.</p>
+            <p style="margin:0;font-size:13px;color:var(--muted)">Demo confirmation only. In production, your deposit policy shows here before confirming.</p>
+          </div>
+          <div class="note">The software behind this is cheap — Calendly ~$10–12/seat/mo, Acuity ~$16–27/mo, Square Appointments $0 solo, GoReminders $30/mo. <strong>You pay for setup, policy, and a system that stays on.</strong></div>
+        </div>
+      </div>
+    </div></article>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing" class="block" aria-labelledby="pricing-h">
+    <div class="sec-head"><h2 id="pricing-h">The honest price</h2><p>One price. All three systems. Checked against what the pieces cost on their own.</p></div>
+    <div class="report"><div class="report-body">
+      <div class="grid2">
+        <div>
+          <div style="font-family:'Anton','Arial Narrow',sans-serif;font-size:clamp(64px,8vw,96px);font-weight:400;letter-spacing:.01em;line-height:1;transform:skewX(-5deg)">$349<span style="font-size:18px;color:#3C3C4C;font-weight:600"> /mo · everything</span></div>
+          <ul class="fixlist" style="margin-top:16px">
+            <li><strong>Month 1:</strong> all 3 systems live</li>
+            <li><strong>Ongoing:</strong> replies, sequences, reminders maintained + monthly report</li>
+            <li><strong>At cost:</strong> per-message texting charges, agreed up front — no markup surprises</li>
+            <li><strong>Never promised:</strong> rankings, review counts, booked-job numbers</li>
+          </ul>
+        </div>
+        <div>
+          <div class="label">Buy the pieces yourself instead?</div>
+          <table class="market">
+            <tr><th>Comparable</th><th>Listed price</th></tr>
+            <tr><td>Review Rover</td><td>$97/mo</td></tr>
+            <tr><td>GatherUp</td><td>$99/mo</td></tr>
+            <tr><td>Birdeye</td><td>~$299–449/location/mo</td></tr>
+            <tr><td>Podium</td><td>~$399–599/mo</td></tr>
+            <tr><td>Managed agencies (same bundle)</td><td>$575–1,500/mo</td></tr>
+            <tr class="ours"><td>This package — done for you</td><td>$349/mo</td></tr>
+          </table>
+          <p style="font-size:12.5px;color:var(--muted)">Software-only rows still leave you the setup. Fiverr “GBP optimisation” gigs run $5–$530 one-off — a commodity we don't sell naked. Full listings in the research sources below.</p>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- SOURCES -->
+  <section id="sources" class="block" aria-labelledby="sources-h" style="padding-bottom:20px">
+    <div class="sec-head"><h2 id="sources-h">Sources &amp; evidence</h2><p>Every market number traces to the 4 Nov 2026 research behind this kit. Sample-business numbers are labelled DEMO and are illustrations, not sources.</p></div>
+    <div class="disclaimer" style="margin-bottom:16px">
+      <strong style="color:var(--ink)">Before quoting any number:</strong> complaint counts in the research are <strong>sampled, not totals</strong> — most Facebook groups are private, so a true total is unknowable. The “85% never call back” line was <strong>deliberately not used</strong> — no traceable primary source exists. The “~47% of SMBs under 20 reviews” figure rests on secondary reporting — re-check on BrightLocal before paid-ad use. Google's profile figures are quoted as “according to Google” — it publishes no method. Salon no-show rates genuinely disagree between sources (see Leak 3).
+    </div>
+    <ul class="sources">
+      <li>BrightLocal, Local Consumer Review Survey 2026 — <a href="https://cufinder.io/blog/statistics/online-review-statistics/" target="_blank" rel="noopener">cufinder.io summary</a> · <a href="https://makeitloud.net/research/online-reviews-and-local-buying-decisions/" target="_blank" rel="noopener">makeitloud.net research</a></li>
+      <li>Missed-call study (411 Locals) &amp; Hiya State of the Call — <a href="https://www.savemycalls.ai/blog/missed-call-statistics" target="_blank" rel="noopener">SaveMyCalls, Missed Call Statistics 2026</a></li>
+      <li>Speed-to-lead: Oldroyd / InsideSales &amp; HBR 2011 — <a href="https://www.expertise.ai/stats/speed-to-lead-statistics" target="_blank" rel="noopener">expertise.ai</a> · <a href="https://www.kixie.com/sales-blog/speed-to-lead-response-time-statistics-that-drive-conversions/" target="_blank" rel="noopener">Kixie compilation</a></li>
+      <li>No-shows &amp; reminders — <a href="https://trtc.io/blog/details/no-show-statistics-cost-by-industry" target="_blank" rel="noopener">TRTC compilation</a> · <a href="https://aitooldaily.net/ai-scheduling-small-business-no-shows/" target="_blank" rel="noopener">AIToolDaily compilation</a> · <a href="https://www.thedentalsignal.com/reduce-dental-no-shows/" target="_blank" rel="noopener">Dental Signal (ADA poll)</a></li>
+      <li>Contractor follow-up audit — <a href="https://www.pmmag.com/articles/107702-why-plumbing-contractors-are-losing-leads-they-dont-know-exist" target="_blank" rel="noopener">PM Magazine, 2026</a></li>
+      <li>Google Business Profile figures — <a href="https://tagsclick.com/google-business-profile-statistics/" target="_blank" rel="noopener">tagsclick.com compilation</a></li>
+      <li>Open questions from the research: no reliable search-volume / Google Trends figures were obtained; direct Reddit &amp; private-group reading wasn't possible, so several complaints come via index excerpts; no standard published freelancer price exists for standalone invoice-reminder setup (not part of this package).</li>
+    </ul>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="block" aria-labelledby="contact-h" style="padding-bottom:24px">
+    <div class="contact">
+      <p class="micro" style="font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey-dark);font-weight:600;margin:0">Prepared by</p>
+      <h2 id="contact-h">rackelez</h2>
+      <div class="contact-grid">
+        <div><span class="label" style="margin:0">Name</span><b>Danish Kaleem</b></div>
+        <div><span class="label" style="margin:0">Company</span><b>rackelez</b></div>
+        <div><span class="label" style="margin:0">Website</span><b><a href="https://plantai.site" target="_blank" rel="noopener">plantai.site</a></b></div>
+        <div><span class="label" style="margin:0">Business email</span><b><a href="mailto:danish@plantai.site">danish@plantai.site</a></b></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">Demo Reports Kit — Growth Package ($349/mo) · Prepared by Danish Kaleem · rackelez · plantai.site · danish@plantai.site · “Riverside Dental Studio” is fictional, for demonstration only · Market statistics © their cited sources, linked above · This page makes no booking, sends no message, and saves nothing — calculators run in your browser for this visit only.</div></footer>
+
+<script>
+(function(){
+  var fmt = function(n){ return "$" + Math.round(n).toLocaleString("en-US"); };
+  var calls=document.getElementById("i-calls"), missed=document.getElementById("i-missed"),
+      val=document.getElementById("i-value"), close=document.getElementById("i-close");
+  function calc1(){
+    var c=+calls.value, m=+missed.value, v=+val.value||0, cl=+close.value;
+    document.getElementById("o-calls").textContent=c;
+    document.getElementById("o-missed").textContent=m+"%";
+    document.getElementById("o-close").textContent=cl+"%";
+    var mc=c*m/100, jobs=mc*cl/100;
+    document.getElementById("r-missed").textContent=Math.round(mc);
+    document.getElementById("r-jobs").textContent=jobs.toFixed(1);
+    document.getElementById("r-month").textContent=fmt(jobs*v*4.33)+" / mo";
+  }
+  [calls,missed,val,close].forEach(function(el){ el.addEventListener("input",calc1); }); calc1();
+  var ap=document.getElementById("i-appts"), ns=document.getElementById("i-noshow"), ch=document.getElementById("i-chair");
+  function calc2(){
+    var a=+ap.value, n=+ns.value, v=+ch.value||0;
+    document.getElementById("o-appts").textContent=a;
+    document.getElementById("o-noshow").textContent=n+"%";
+    var empty=a*n/100, monthly=empty*v*4.33;
+    document.getElementById("r-empty").textContent=empty.toFixed(1);
+    document.getElementById("r-chairmonth").textContent=fmt(monthly)+" / mo";
+    document.getElementById("r-saved").textContent="~"+fmt(monthly*0.289)+" / mo";
+  }
+  [ap,ns,ch].forEach(function(el){ el.addEventListener("input",calc2); }); calc2();
+  var svc="New Patient Exam", slot="Tomorrow · 9:00 AM";
+  function paint(){
+    document.getElementById("c-svc").textContent=svc;
+    document.getElementById("c-slot").textContent=slot;
+  }
+  document.querySelectorAll(".svc button").forEach(function(b){
+    b.addEventListener("click",function(){
+      document.querySelectorAll(".svc button").forEach(function(x){x.setAttribute("aria-pressed","false");});
+      b.setAttribute("aria-pressed","true"); svc=b.getAttribute("data-svc").replace("&amp;","&"); paint();
+    });
+  });
+  document.querySelectorAll(".slot").forEach(function(b){
+    b.addEventListener("click",function(){
+      document.querySelectorAll(".slot").forEach(function(x){x.setAttribute("aria-pressed","false");});
+      b.setAttribute("aria-pressed","true"); slot=b.getAttribute("data-slot"); paint();
+    });
+  });
+  paint();
+})();
+</script>
+</body>
+</html>
